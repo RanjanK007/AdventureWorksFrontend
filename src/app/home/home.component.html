@@ -1,0 +1,48 @@
+<div>
+    <label for="inputField">Maximum Total</label>
+    <input type="text" id="inputField" [(ngModel)]="inputValue" (change)="handleInputChange()" /> 
+    <button (click)="handleButtonClick()">Get Data</button>
+  </div>
+
+
+<div *ngIf="displayTable">
+  <table>
+    <tr>
+      <th></th>
+      <th>Order Year</th>
+      <th>Time To Ship In Days</th>
+      <th>Total</th>
+    </tr>
+    <ng-container *ngFor="let sale of sales">
+    <ng-container *ngIf="inputValueParsed===0?sale.total > inputValueParsed:sale.total< inputValueParsed">
+    <tr  [ngClass]="sale.time_to_ship>7?'red':''">
+      <td><button (click)="expandRow()">></button></td>
+      <td>{{sale.order_year}}</td>
+      <td>{{sale.time_to_ship}}</td>
+      <td>{{sale.total}}</td>
+    </tr>
+  </ng-container>
+</ng-container>
+  </table>
+</div>
+
+<div *ngIf="displaySubTable">
+  <table>
+    <tr>
+      <th>Order Date</th>
+      <th>Ship Date</th>
+      <th>Sales order ID</th>
+      <th>Contact Name</th>
+      <th>Total</th>
+      <th></th>
+    </tr>
+   <tr *ngFor="let record of records">
+    <td>{{record.order_date}}</td>
+    <td>{{record.ship_date}}</td>
+    <td>{{record.sales_order_id}}</td>
+    <td>{{record.contact_name}}</td>
+    <td>{{record.total}}</td>
+    <td><button (click)="searchGoogle()">></button></td>
+   </tr>
+  </table>
+</div>
